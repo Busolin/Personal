@@ -18,24 +18,16 @@ def verifica_ataques(tabuleiro, linha, coluna, numero_rainhas):
         if (tabuleiro[linha][i] == 1 and i != coluna):
             numero_ataques += 1
             
-    # Diagonal superior a esquerda
-    for i, j in zip(range(linha-1, -1, -1), range(coluna-1, -1, -1)):
-        if tabuleiro[i][j] == 1:
-            numero_ataques += 1   
-
-    # Diagonal inferior esquerda
-    for i, j in zip(range(linha+1, numero_rainhas, 1), range(coluna-1, -1, -1)):
-        if tabuleiro[i][j] == 1:
+    # Verifica ataques nas diagonais
+    for i in range(1, numero_rainhas):
+        if linha - i >= 0 and coluna - i >= 0 and tabuleiro[linha - i][coluna - i] == 1:
             numero_ataques += 1
-
-    # Diagonal superior a direita
-    for i, j in zip(range(linha-1, -1, -1), range(coluna+1, numero_rainhas, 1)):
-        if tabuleiro[i][j] == 1:
+        if linha + i < numero_rainhas and coluna + i < numero_rainhas and tabuleiro[linha + i][coluna + i] == 1:
             numero_ataques += 1
-
-    # Diagonal infeior direita
-    for i, j in zip(range(linha+1, numero_rainhas, 1), range(coluna+1, numero_rainhas, 1)):
-        if tabuleiro[i][j] == 1:
+        
+        if linha + i < numero_rainhas and coluna - i >= 0 and tabuleiro[linha + i][coluna - i] == 1:
+            numero_ataques += 1
+        if linha - i >= 0 and coluna + i < numero_rainhas and tabuleiro[linha - i][coluna + i] == 1:
             numero_ataques += 1
             
     return numero_ataques
@@ -99,7 +91,7 @@ def solucao_n_rainhas_paralelo(numero_rainhas, numero_tabuleiros):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Exemplo de script com argumentos no cmd")
+    parser = argparse.ArgumentParser(description="Script projeto n rainhas")
     parser.add_argument('--rainhas', type=int, help="Numero rainhas", required=True)
     parser.add_argument('--processos', type=int, help="Numero processos", required=True)
     args = parser.parse_args()
