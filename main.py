@@ -2,6 +2,7 @@ import numpy as np
 import random
 import multiprocessing as mp
 import time
+import math
 import argparse
 
 def gera_tabuleiro(numero_rainhas):
@@ -93,11 +94,14 @@ def solucao_n_rainhas_paralelo(numero_rainhas, numero_tabuleiros):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Script projeto n rainhas")
     parser.add_argument('--rainhas', type=int, help="Numero rainhas", required=True)
-    parser.add_argument('--processos', type=int, help="Numero processos", required=True)
     args = parser.parse_args()
-
     numero_rainhas = args.rainhas
-    num_tabuleiros = args.processos
+    # Para calcular um valor otimizado de número de tabuleiros vamos usar a Lei de Amdahl
+    # Em conjunto com um fator de escalabilidade
+    P = 0.88335 #definido como a porcentagem do programa que é paralelizável
+    S = 1 / ((1-P)+(P/numero_rainhas))
+    num_tabuleiros = round(S * math.log2(numero_rainhas))
+
     print("Resolvendo n-rainhas sem sistemas distribuidos: ")
     inicio = time.time()
     tabuleiros = []
