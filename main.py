@@ -9,7 +9,7 @@ import psutil
 
 
 # Essa função salva em um arquivo txt todas as matrizes com as soluções
-def salvar_solucoes(solucoes, n_rainhas, nome):
+def salvar_solucoes(solucoes, nome):
     with open(nome, "w") as file:
         for idx, solucao in enumerate(solucoes):
             file.write(f"Solução {idx + 1}:\n\n")
@@ -256,5 +256,5 @@ if __name__ == "__main__":
         plot_compara_tempo(numero_rainhas)
 
     if save:
-        salvar_solucoes(solucoes_paralelos, numero_rainhas, f"solucoes_{numero_rainhas}_rainhas_paralelo.txt")
-        salvar_solucoes(solucoes_sequenciais, numero_rainhas, f"solucoes_{numero_rainhas}_rainhas_sequencial.txt")
+        salvar_solucoes(solucoes_paralelos, f"solucoes_{numero_rainhas}_rainhas_paralelo.txt")
+        salvar_solucoes(solucoes_sequenciais,  f"solucoes_{numero_rainhas}_rainhas_sequencial.txt")
