@@ -224,12 +224,13 @@ def plot_recursos(maximo_rainhas):
 
 # Apenas para mostrar uma das solucoes (mostrar todas seria inviavel para valores elevados)
 def print_uma_solucao(solucoes):
-    indice = random.randint(0, len(solucoes)-1)
-    solucao = solucoes[indice]
-    print("Uma solução possível: \n")
-    for linha in solucao:
-        print(' '.join('R' if x else '.' for x in linha))
-    print('-' * (len(solucao) * 2 - 1))
+    if solucoes:
+        indice = random.randint(0, len(solucoes)-1)
+        solucao = solucoes[indice]
+        print("Uma solução possível: \n")
+        for linha in solucao:
+            print(' '.join('R' if x else '.' for x in linha))
+        print('-' * (len(solucao) * 2 - 1))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script projeto n rainhas")
@@ -245,6 +246,8 @@ if __name__ == "__main__":
 
     solucoes_paralelos = soluciona_n_rainhas_paralelo(numero_rainhas)
     solucoes_sequenciais = soluciona_n_rainhas_seq(numero_rainhas)
+
+    print(f"Numero de soluções = {len(solucoes_paralelos)}")
 
     print_uma_solucao(solucoes_paralelos)
     print_uma_solucao(solucoes_sequenciais)
